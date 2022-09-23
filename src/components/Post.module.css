@@ -1,0 +1,107 @@
+.post{
+    background-color: var(--gray-700);    
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    
+}
+
+.post:not(:last-child){
+    margin-bottom: 2rem;
+}
+
+.header{
+    width: 100%;   
+    display: flex;
+    align-items: center;
+}
+
+.information{
+    margin-left: 1rem;
+}
+
+.information strong{
+    display: block;
+    color: var(--gray-100);
+    font-weight: 700;
+}
+
+.information span{
+    display: block;
+    color: var(--gray-400);
+}
+
+.header time{
+    color: var(--gray-400);
+    margin-left: auto;
+    font-size: .75rem;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.5rem;
+    margin: 1.25rem 0;
+}
+
+.content p{
+    color: var(--gray-200);
+}
+
+.content a{
+    text-decoration: none;
+    color: var(--green-400);
+}
+
+.post footer{
+    color: var(--gray-100);
+    width: 100%; 
+    border-top: 2px solid var(--gray-500);
+    padding: 1.5rem 0;
+    
+}
+
+.post footer form{
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.25rem;
+}
+
+.post footer textarea{
+    resize: none;
+    width: 100%;
+    background-color: var(--gray-900);
+    border: none;
+    border-radius: 8px;
+    height: 6rem;  
+    padding: 1rem;  
+    color: var(--gray-200);
+}
+
+.post footer form:focus-within .submit{
+    visibility: visible;
+    max-height: none;
+    margin-bottom: 2rem;
+}
+
+.submit{
+    visibility: hidden;
+    max-height: 0;
+}
+
+.submit button{
+   padding: 1rem 1.5rem;
+   border-radius: 8px;
+   border:none;
+   cursor: pointer;
+   background-color: var(--green-500);
+   color: var(--white);
+
+   transition: background-color .1s ease;
+}
+
+.submit button:hover{
+    background-color: var(--green-400);
+}

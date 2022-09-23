@@ -1,0 +1,17 @@
+.avatarWithBorder{
+    height: calc(4rem + 2px + 2px);
+    width: calc(4rem + 2px + 2px);
+    border: 2px solid var(--gray-700);
+    outline: 2px solid var(--green-400);
+    border-radius: 8px;    
+    object-fit: cover;
+
+}
+
+.avatarWithoutBorder{
+    height: 4rem;
+    width: 4rem;
+    border-radius: 8px;
+    object-fit: cover;
+    
+}
