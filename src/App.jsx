@@ -12,11 +12,11 @@ export function App() {
     {
       id: 1,
       author: {
-        name: "Gabriela Chiquetto",
-        role: "Web Developer",
-        avatarSrc: "https://xesque.rocketseat.dev/users/avatar/profile-84ff1fc9-873b-4e89-b955-666ffc10c1d7-1663832191728.jpg",
+        name: "Jacob Jhonson",
+        role: "Backend Developer",
+        avatarSrc: "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=40",
       },
-      date: new Date('2022-09-24T14:20:00'),
+      date: new Date('2022-09-24T13:20:00'),
       content:[
         {
           id:1,
@@ -26,7 +26,7 @@ export function App() {
         {
           id:2,
           type: "link",
-          content: "👉 gabriela.design/doctorcare"
+          content: "👉 jj.design/doctorcare"
         },
         {
           id:3,

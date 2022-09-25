@@ -1,24 +1,42 @@
 import { Avatar } from './Avatar';
 import styles from './Comment.module.css';
-import { ThumbsUp, Trash } from 'phosphor-react'
+import { ThumbsUp, Trash } from 'phosphor-react';
+import { formatDistance } from 'date-fns';
+import { useState } from 'react';
 
-export function Comment(){
+export function Comment( {content, onDeleteComponent} ){
+
+    const dateFormatted = (formatDistance(content.date, new Date(), {addSuffix: true})).charAt(0).toUpperCase() + (formatDistance(content.date, new Date(), {addSuffix: true})).slice(1);
+    const dateFormattedForTitle = format(content.date, "MMMM Do 'of' yyyy");
+
+    const [likesCount, setLikesCount] = useState(0);
+
+    function handleLikeCount(){
+        setLikesCount( (likesCount) => {
+            return likesCount + 1;
+        } );
+    };
+
+    function handleDeleteComment(){
+        onDeleteComponent(content);
+    }
+
     return(
-        <div className={styles.comment}>
-            <Avatar hasBorder={false} src="https://images.unsplash.com/photo-1618641986557-1ecd230959aa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=40" />
-            <div className={styles.container}>
-                <div className={styles.content}>
+        <div className={ styles.comment }>
+            <Avatar hasBorder={false} src={ content.avatarSrc } />
+            <div className={ styles.container }>
+                <div className={ styles.content }>
                     <div>
-                        <div className={styles.header}>
-                            <strong>Jacob Jhonson</strong>
-                            <Trash size={20} className={styles.delete}/>
+                        <div className={ styles.header }>
+                            <strong>{ content.name }</strong>
+                            <Trash size={20} className={styles.delete} onClick={ handleDeleteComment }/>
                         </div>
                         
-                        <time dateTime='2022-09-23 14:20' title='September 23rd at 14:20'>2 hours ago</time>
+                        <time dateTime={ content.date.toString() } title={ dateFormattedForTitle }>{ dateFormatted }</time>
                     </div>
-                    <p>Awesome, Gabriela! Thanks for sharing it</p>                    
+                    <p>{ content.content }</p>                    
                 </div>
-                <button><ThumbsUp size={20} /> Like <span>&#8226;</span> <span>03</span> </button>
+                <button onClick={ handleLikeCount }><ThumbsUp size={20} /> Like <span>&#8226;</span> <span>{ likesCount }</span> </button>
             </div>
         </div>
     )

@@ -3,11 +3,53 @@ import { Comment } from './Comment';
 import { format, formatDistance } from 'date-fns';
 
 import styles from './Post.module.css';
+import { useState } from 'react';
+import { set } from 'date-fns/esm';
 
 export function Post( { content } ){
 
-    const date = new Date(content.date);
-    const dateFormatted = (formatDistance(date, new Date(), {addSuffix: true})).charAt(0).toUpperCase() + (formatDistance(date, new Date(), {addSuffix: true})).slice(1);
+    const dateFormatted = (formatDistance(content.date, new Date(), {addSuffix: true})).charAt(0).toUpperCase() + (formatDistance(content.date, new Date(), {addSuffix: true})).slice(1);
+    const dateFormattedForTitle = format(content.date, "MMMM Do 'of' yyyy");
+    const [comments, setComments] = useState([]);
+
+    const [newCommentContent, setNewCommentContent] = useState('');
+
+    const [commentId, setCommentId] = useState(1);
+
+    const buttonDisabled = (newCommentContent === '' ? true : false);
+
+    function createNewCommentContent(){
+        event.target.setCustomValidity('');
+        setNewCommentContent(event.target.value);
+    }
+
+    function createComment(){
+        event.preventDefault();
+
+        setCommentId( (commentId) => {
+            return commentId + 1;
+        });
+
+        const newComment = {
+            id: commentId,
+            name: "Gabriela Chiquetto",
+            avatarSrc: "https://xesque.rocketseat.dev/users/avatar/profile-84ff1fc9-873b-4e89-b955-666ffc10c1d7-1663832191728.jpg",
+            date: new Date(),
+            content: newCommentContent,
+        };
+
+        setComments([...comments, newComment]);
+        setNewCommentContent('');
+    };   
+
+    function handleInvalidMessage(){
+        event.target.setCustomValidity('Please leave a comment, blank comments are not allowed.');
+    };
+
+    function onDeleteComponent(commentId){
+        const commentsNotDeleted = comments.filter( comment => comment.id !== commentId.id  );
+        setComments(commentsNotDeleted);
+    };
 
     return(
         <div className={styles.post}>
@@ -17,7 +59,7 @@ export function Post( { content } ){
                     <strong>{ content.author.name }</strong>
                     <span>{ content.author.role }</span>
                 </div>
-                <time dateTime='2022-09-23 14:00' title='September 23rd at 14:00'>{dateFormatted}</time>
+                <time dateTime={content.date.toString()} title={dateFormattedForTitle}>{dateFormatted}</time>
             </div>
             
             <div className={styles.content}>
@@ -31,15 +73,20 @@ export function Post( { content } ){
             </div>
 
             <footer style={styles.footer}>    
-                <form>
+                <form onSubmit={createComment}>
                     <strong>Give your feedback</strong>
-                    <textarea placeholder='Write your feedback'></textarea>
+                    <textarea 
+                        name='comment' 
+                        onChange={createNewCommentContent} 
+                        placeholder='Write your feedback' 
+                        value={newCommentContent} 
+                        required
+                        onInvalid={ handleInvalidMessage }></textarea>
                     <div className={styles.submit}>
-                        <button>Publish</button>
+                        <button type="submit" disabled = { buttonDisabled } >Publish</button>
                     </div>
                 </form>
-                <Comment />
-                <Comment />
+                {comments.map(comment => {return <Comment key={comment.id} content={comment} onDeleteComponent={onDeleteComponent} />})}
             </footer>
         </div>
     )

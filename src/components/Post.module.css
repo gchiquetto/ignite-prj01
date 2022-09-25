@@ -103,6 +103,11 @@
    transition: background-color .1s ease;
 }
 
-.submit button:hover{
+.submit button:not(:disabled):hover{
     background-color: var(--green-400);
+}
+
+.submit button:disabled{
+    opacity: .6;
+    cursor: not-allowed;
 }
