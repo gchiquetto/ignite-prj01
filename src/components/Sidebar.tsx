@@ -13,7 +13,7 @@ export function Sidebar(){
                 <span>Web Developer</span>           
             </div>
 
-            <footer style={styles.footer}>
+            <footer className={styles.footer}>
                 <a href="">
                     <PencilSimpleLine size={20} />
                     Edit your profile

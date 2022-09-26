@@ -37,7 +37,7 @@
     padding: 1.25rem 1rem;
 }
 
-.sidebar footer a{
+.sidebar .footer a{
     display: flex;
     align-items: center;
     column-gap: 5px;
@@ -51,7 +51,7 @@
     transition: all .1s ease-in;
 }
 
-.sidebar footer a:hover{
+.sidebar .footer a:hover{
     background-color: var(--green-500);
     color: var(--gray-100);
     border: 1px solid var(--green-500);

@@ -1,10 +1,24 @@
 import { Avatar } from './Avatar';
 import styles from './Comment.module.css';
 import { ThumbsUp, Trash } from 'phosphor-react';
-import { formatDistance } from 'date-fns';
+import { formatDistance, format } from 'date-fns';
 import { useState } from 'react';
 
-export function Comment( {content, onDeleteComponent} ){
+interface Comment{
+   content: {
+        id: number,
+        name: string,
+        avatarSrc: string,
+        date: Date,
+        content: string,
+    }
+}
+
+interface OnDeleteComponent{
+    onDeleteComponent: (id: number) => void;
+}
+
+export function Comment( {content, onDeleteComponent} : Comment & OnDeleteComponent){
 
     const dateFormatted = (formatDistance(content.date, new Date(), {addSuffix: true})).charAt(0).toUpperCase() + (formatDistance(content.date, new Date(), {addSuffix: true})).slice(1);
     const dateFormattedForTitle = format(content.date, "MMMM Do 'of' yyyy");
@@ -18,7 +32,7 @@ export function Comment( {content, onDeleteComponent} ){
     };
 
     function handleDeleteComment(){
-        onDeleteComponent(content);
+        onDeleteComponent(content.id);
     }
 
     return(

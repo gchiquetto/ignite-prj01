@@ -56,7 +56,7 @@
 }
 
 
-.post footer{
+.post .footer{
     color: var(--gray-100);
     width: 100%; 
     border-top: 2px solid var(--gray-500);
@@ -64,13 +64,13 @@
     
 }
 
-.post footer form{
+.post .footer form{
     display: flex;
     flex-direction: column;
     row-gap: 1.25rem;
 }
 
-.post footer textarea{
+.post .footer textarea{
     resize: none;
     width: 100%;
     background-color: var(--gray-900);
@@ -81,7 +81,7 @@
     color: var(--gray-200);
 }
 
-.post footer form:focus-within .submit{
+.post .footer form:focus-within .submit{
     visibility: visible;
     max-height: none;
     margin-bottom: 2rem;
