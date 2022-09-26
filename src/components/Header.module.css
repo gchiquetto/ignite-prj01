@@ -1,11 +1,11 @@
-header{
+.header{
     background-color: var(--gray-700);
     display: flex;
     justify-content: center;    
     padding: 1.25rem 0;
 }
 
-header img{
+.header img{
     height: 2.5rem;
     width: 2.5rem;
 }

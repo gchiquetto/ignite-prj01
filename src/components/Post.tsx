@@ -3,27 +3,51 @@ import { Comment } from './Comment';
 import { format, formatDistance } from 'date-fns';
 
 import styles from './Post.module.css';
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react';
 import { set } from 'date-fns/esm';
 
-export function Post( { content } ){
+
+interface Content{
+    content: {id: number; 
+    author: {
+        name: string;
+        role: string;
+        avatarSrc: string;
+    };
+    date: Date;
+    content: { 
+        id: number;
+        type: string;
+        content: string;
+    }[];}
+};
+
+interface Comment{
+    id: number,
+    name: string,
+    avatarSrc: string,
+    date: Date,
+    content: string,
+}
+
+export function Post( { content }: Content ){
 
     const dateFormatted = (formatDistance(content.date, new Date(), {addSuffix: true})).charAt(0).toUpperCase() + (formatDistance(content.date, new Date(), {addSuffix: true})).slice(1);
     const dateFormattedForTitle = format(content.date, "MMMM Do 'of' yyyy");
-    const [comments, setComments] = useState([]);
+    const [comments, setComments] = useState(Array<Comment>);
 
     const [newCommentContent, setNewCommentContent] = useState('');
 
-    const [commentId, setCommentId] = useState(1);
+    const [commentId, setCommentId]  = useState(1);
 
     const buttonDisabled = (newCommentContent === '' ? true : false);
 
-    function createNewCommentContent(){
+    function createNewCommentContent( event : ChangeEvent<HTMLTextAreaElement>){
         event.target.setCustomValidity('');
         setNewCommentContent(event.target.value);
     }
 
-    function createComment(){
+    function createComment(event : FormEvent<HTMLFormElement>){
         event.preventDefault();
 
         setCommentId( (commentId) => {
@@ -42,12 +66,12 @@ export function Post( { content } ){
         setNewCommentContent('');
     };   
 
-    function handleInvalidMessage(){
+    function handleInvalidMessage(event: InvalidEvent<HTMLTextAreaElement>){
         event.target.setCustomValidity('Please leave a comment, blank comments are not allowed.');
     };
 
-    function onDeleteComponent(commentId){
-        const commentsNotDeleted = comments.filter( comment => comment.id !== commentId.id  );
+    function onDeleteComponent(commentId : number){
+        const commentsNotDeleted = comments.filter( comment => comment.id !== commentId );
         setComments(commentsNotDeleted);
     };
 
@@ -72,7 +96,7 @@ export function Post( { content } ){
                 })}
             </div>
 
-            <footer style={styles.footer}>    
+            <footer className={styles.footer}>    
                 <form onSubmit={createComment}>
                     <strong>Give your feedback</strong>
                     <textarea 
